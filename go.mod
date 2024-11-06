@@ -1,4 +1,4 @@
-module main.go
+module gitlab.com/snormore/hello
 
 go 1.17
 
