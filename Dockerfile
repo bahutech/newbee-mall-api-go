@@ -11,10 +11,11 @@ WORKDIR /app
 # This will copy all files in the repo to /app inside the container.
 # If your app requires the build context to be set to a subdirectory inside the repo, you
 #   can use the source_dir app spec option, see: https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
-COPY . .
+COPY . /app
 #RUN go build -o ./userapi
 # Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /newbee-mall-api-go
+#RUN CGO_ENABLED=0 GOOS=linux go build -o /newbee-mall-api-go
+RUN go build -o main .
 # -- Stage 2 -- #
 # Create the final environment with the compiled binary.
 #FROM gcr.io/distroless/base-debian12
@@ -23,4 +24,4 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /newbee-mall-api-go
 #WORKDIR /app
 # Copy the binary from the builder stage and set it as the default command.
 #COPY --from=builder /app/userapi ./userapi
-CMD ["/newbee-mall-api-go"]
+CMD ["/app/main"]
