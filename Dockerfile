@@ -14,7 +14,7 @@ WORKDIR /app
 COPY . .
 #RUN go build -o ./userapi
 # Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+RUN CGO_ENABLED=0 GOOS=linux go build -o /newbee-mall-api-go
 # -- Stage 2 -- #
 # Create the final environment with the compiled binary.
 #FROM gcr.io/distroless/base-debian12
@@ -23,4 +23,4 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
 #WORKDIR /app
 # Copy the binary from the builder stage and set it as the default command.
 #COPY --from=builder /app/userapi ./userapi
-CMD ["/docker-gs-ping"]
+CMD ["/newbee-mall-api-go"]
