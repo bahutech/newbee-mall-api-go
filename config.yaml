@@ -2,12 +2,12 @@
 local:
   path: static
 mysql:
-  path: 127.0.0.1
-  port: "3306"
+  path: db-mysql-nyc3-32832-do-user-18233818-0.f.db.ondigitalocean.com
+  port: "25060"
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: newbee_mall_db_v2
-  username: root
-  password: root
+  username: doadmin
+  password: AVNS_L7-zmNJAGCl5CWBNSRR
   max-idle-conns: 0
   max-open-conns: 0
   log-mode: ""
