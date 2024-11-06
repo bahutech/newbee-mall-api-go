@@ -1,27 +1,24 @@
-# syntax=docker/dockerfile:1
+# This is a standard Dockerfile for building a Go app.
+# It is a multi-stage build: the first stage compiles the Go source into a binary, and
+#   the second stage copies only the binary into an alpine base.
 
-FROM golang:1.19
-
-# Set destination for COPY
+# -- Stage 1 -- #
+# Compile the app.
+FROM golang:1.12-alpine as builder
 WORKDIR /app
-
-# Download Go modules
+# The build context is set to the directory where the repo is cloned.
+# This will copy all files in the repo to /app inside the container.
+# If your app requires the build context to be set to a subdirectory inside the repo, you
+#   can use the source_dir app spec option, see: https://www.digitalocean.com/docs/app-platform/references/app-specification-reference/
 COPY . .
-RUN go mod download
+RUN go build -mod=vendor -o bin/hello
 
-# Copy the source code. Note the slash at the end, as explained in
-# https://docs.docker.com/reference/dockerfile/#copy
-COPY *.go /app/
-
-# Build
-RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
-
-# Optional:
-# To bind to a TCP port, runtime parameters must be supplied to the docker command.
-# But we can document in the Dockerfile what ports
-# the application is going to listen on by default.
-# https://docs.docker.com/reference/dockerfile/#expose
-EXPOSE 8080
-
-# Run
-CMD ["/docker-gs-ping"]
+# -- Stage 2 -- #
+# Create the final environment with the compiled binary.
+FROM alpine
+# Install any required dependencies.
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+# Copy the binary from the builder stage and set it as the default command.
+COPY --from=builder /app/bin/hello /usr/local/bin/
+CMD ["hello"]
