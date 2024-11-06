@@ -1,5 +1,5 @@
 ## 本地图片上传路径
-name: sample-dockerfile
+name: newbee-mall-api-go
 services:
 - dockerfile_path: Dockerfile
   github:
