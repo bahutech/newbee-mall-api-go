@@ -6,7 +6,7 @@ RUN mkdir /app
 ADD . /app
 # Set destination for COPY
 WORKDIR /app
-RUN go build -o main .
+RUN go build -o main app
 CMD [ "/app/main" ]
 # Download Go modules
 # COPY go.mod go.sum ./
