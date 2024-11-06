@@ -1,12 +1,8 @@
-  - name: DigitalOcean App Platform deployment
-  # You may pin to the exact commit or the version.
-  # uses: digitalocean/app_action@94ed240e4d0ff6cff2020be713f2eb10d9404ad0
-  uses: digitalocean/app_action@v1.1.6
-  with:
-    # Name of the app. (The name of the app must be unique across all apps in the same account.)
-    app_name: 
-    # DigitalOcean Personal Access Token.(use https://docs.digitalocean.com/reference/api/create-personal-access-token/ for creating new token)
-    token: 
-    # (OPTIONAL)a json array of objects with the properties name (description), repository (repo url), tag (image tag)
-    images: # optional, default is 
-          
+spec:
+  name: newbee-mall-api-go
+  services:
+  - dockerfile_path: Dockerfile
+    git:
+      branch: main
+      repo_clone_url: https://github.com/bahutech/newbee-mall-api-go.git
+    name: newbee-mall-api-go
