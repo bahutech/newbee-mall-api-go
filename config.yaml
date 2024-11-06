@@ -1,4 +1,12 @@
 ## 本地图片上传路径
+name: sample-dockerfile
+services:
+- dockerfile_path: Dockerfile
+  github:
+    branch: main
+    deploy_on_push: true
+    repo: bahutech/newbee-mall-api-go
+  name: newbee-mall-api-go
 local:
   path: static
 mysql:
